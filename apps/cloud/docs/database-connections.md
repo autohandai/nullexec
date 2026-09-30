@@ -31,11 +31,8 @@ when PostgreSQL returns SQLSTATE `53300`. They make at most seven attempts, with
 ten seconds between attempts and a ten-second connection timeout. They never
 retry migration bodies or readiness mutations. Other errors fail immediately.
 
-The Database capacity workflow checks direct access and aggregate connection
-headroom every five minutes. It fails when fewer than ten ordinary slots remain.
-Counts include the monitor and conservatively count privileged client sessions
-against ordinary capacity. GitHub schedule delays and notification preferences
-apply; this is not a real-time paging service. Check PlanetScale CPU and PgBouncer
+Check direct access and aggregate connection headroom during load spikes.
+Check PlanetScale CPU and PgBouncer
 waiting clients alongside Cloudflare query errors and latency during load spikes.
 
 For a routing change, first account for overlapping old and new pools. Verify
